@@ -1,17 +1,26 @@
 package lottery;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
 	private int value;
 
+	public static Map<Integer, LottoNumber> numberSet;
+
+	static {
+		numberSet = new LinkedHashMap<>();
+		IntStream.range(1, 46).forEach( i -> numberSet.put(i, LottoNumber.of(i)));
+	}
 	public static LottoNumber of(int value) {
-		return new LottoNumber(value);
+		 return numberSet.get(value);
 	}
 
 	public static LottoNumber of(String value) {
-		return new LottoNumber(Integer.parseInt(value));
+		return numberSet.get(Integer.parseInt(value));
 	}
 
 	private LottoNumber(int value) {
